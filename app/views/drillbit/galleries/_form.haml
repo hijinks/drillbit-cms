@@ -1,0 +1,8 @@
+%form{:action => '/admin/upload', :enctype => 'multipart/form-data', :method => 'post', :target=> 'gallery_frame', :id => 'uploadForm'}
+	%input{:type => 'file', :name => 'file'}
+	%input#gallery_id{:type => 'hidden', :name => 'gallery_id', :value => @gallery.id}
+	%iframe#gallery_iframe{:name => 'gallery_frame'}
+	%input{:type => 'button', :value => 'Upload'}
+
+%div.progress
+	%div#progBar{:class => 'progress-bar progress-bar-striped active', :role => 'progressbar', 'aria-valuenow'=>'10', 'aria-valuemin'=>'0', 'aria-valuemax'=>'100'}

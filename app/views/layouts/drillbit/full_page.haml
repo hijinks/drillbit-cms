@@ -1,0 +1,12 @@
+!!!
+%html
+	%head
+		%title Drillbit
+		= stylesheet_link_tag	"drillbit/application", media: "all"
+		= javascript_include_tag	"drillbit/application"
+		= yield(:head)
+		= csrf_meta_tags
+	%body
+		%nav= render "shared/admin_nav"
+		%div#main= yield
+

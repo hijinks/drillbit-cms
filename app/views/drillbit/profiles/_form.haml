@@ -1,0 +1,46 @@
+- if @profile.errors.any?
+	%div#error_explanation.alert.alert-danger
+		%h2
+			= pluralize(@profile.errors.count, "error")
+			= 'prohibited this profile from being saved:'
+
+		%ul
+			- @profile.errors.full_messages.each do |msg|
+				%li= msg
+%h1.form-new-user-heading Edit Profile
+
+- if notice
+	%div#notice.alert.alert-info= notice
+
+- if alert
+	%div#alert.alert.alert-danger= alert
+
+= form_for [@user, @profile], :url => :update_profile, :method => :put, :multipart => true do |f|
+	
+	%div.field
+		#avatar_wrap
+			= f.label :avatar, " Avatar"
+			- if @profile.avatar.url.present?
+				= image_tag @profile.avatar.url, :class => "img-thumbnail"
+			= f.hidden_field :avatar_cache
+			= f.file_field :avatar
+			%p (Needs 1:1 aspect ratio)
+
+	%div.field
+		= f.label :alias 
+		= f.text_field :alias, :class => 'form-control'
+	
+	%div.field
+		= f.label :location 
+		= f.text_field :location, :class => 'form-control'
+
+	%div.field
+		= f.label :bio 
+		= f.text_area :bio, :class => 'form-control', :rows => 6
+
+	%div.field
+		= f.label :contact 
+		= f.text_area :contact, :class => 'form-control', :rows => 6
+					
+	%div.actions
+		= f.submit "Save", :class => 'submit-form btn btn-lg btn-primary btn-block'

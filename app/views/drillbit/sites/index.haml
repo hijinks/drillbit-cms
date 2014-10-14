@@ -1,0 +1,36 @@
+= javascript 'drillbit/sites'
+
+.mid-box
+	%ol.breadcrumb
+		%li= link_to 'Sites', sites_path
+
+	%div{:class => 'panel panel-default'}
+		%div.panel-heading Sites
+			
+		%div.panel-body
+			%a{:href => new_site_path, :class => 'btn btn-default'} 
+				%span{:class=>'glyphicon glyphicon-plus'}
+				New site
+								
+		%table{:class => 'table'}
+			%thead
+				%tr
+					%td Title
+					%td Edit
+					%td Remove				
+			%tbody
+			- @sites.each do |s|
+				%tr
+					%td
+						= link_to s[:name], site_posts_path(s)
+					
+					%td
+						%a.btn.btn-info.btn-xs{:href => edit_site_path(s), 'data-placement' => 'right'}
+							%span{:class=>'glyphicon glyphicon-wrench'}
+					
+					%td
+						= button_to s, :method => 'delete', :class => 'site_delete btn btn-danger btn-xs', 'data-toggle' => 'confirmation', 'data-placement' => 'right', :title => 'Are you sure?' do
+							%span{:class=>'glyphicon glyphicon-minus'}
+							
+							
+							

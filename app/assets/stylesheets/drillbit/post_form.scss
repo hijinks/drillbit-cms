@@ -1,0 +1,58 @@
+/*
+*= require bubbletip/bubbletip
+*/
+
+@import url("//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700");
+
+.post_form {
+	width:800px;
+	margin:100px auto 10px auto;
+}
+
+#post-title {
+	font-family: "Source Sans Pro";
+	font-size: 36px;
+	font-weight: 500;
+	height:60px;
+}
+
+.field {
+	margin-top:20px;
+}
+
+.submit-form {
+	margin-top:20px;
+}
+
+#blog-content {
+	border:2px dashed #ccc;
+	padding:20px;
+	font-family: "Source Sans Pro";
+	
+	h1, h2, h3, h4, h5, p, span{
+		font-family: "Source Sans Pro";
+		
+		border:1px solid #e3e3e3;
+	}
+	
+}
+
+#banner-content {
+	width:500px;
+	height:100px;
+}
+
+.imgWrap {
+	display:block;
+	margin:20px 0px;
+	text-align:center;
+}
+
+.imgWrap img{
+	margin:0 auto;
+}
+
+.imgWrapInner {
+	display:block;
+	margin:0 auto;
+}

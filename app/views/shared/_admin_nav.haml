@@ -1,0 +1,20 @@
+- if current_user
+	%div.navbar.navbar-fixed-top.navbar-default
+		
+		%div.container
+			%div.navbar-header
+				%button.navbar-toggle{'data-toggle' => 'collapse', 'data-target' => '.navbar-collapse'}
+					%span.sr-only Toggle navigation
+					%span.icon-bar
+					%span.icon-bar
+					%span.icon-bar
+				
+				=link_to 'Drillbit CMS', :landing, {:class => 'navbar-brand'}
+			
+			%div.collapse.navbar-collapse
+				%ul.nav.navbar-nav
+					%li= link_to "Sites", sites_path
+					%li= link_to "Edit Profile", :show_profile
+					//%li= link_to "New User", new_user_path
+					%li= link_to "Logout", :logout
+				

@@ -1,0 +1,8 @@
+%div{ :class => "panel panel-default"}
+	%div{ :class => "panel-body"} 
+		Drag images to content area
+%div.gallery
+	- @images.each do |i|
+		- image_path = '/image/' + i.gallery_id.to_s + '/' + i.download_token.to_s + '/small'
+		%div.gallery_image
+			= image_tag image_path, {:draggable => "true", :ondragstart => "return window.dragStart(event)", :class => 'galleryDrop img-thumbnail', 'original-height'=> i.height, 'original-width'=> i.width}

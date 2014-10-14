@@ -1,0 +1,36 @@
+- if @site.errors.any?
+	%div#error_explanation.alert.alert-danger
+		%h2
+			= pluralize(@site.errors.count, "error")
+			= 'prohibited this site from being saved:'
+
+		%ul
+			- @site.errors.full_messages.each do |msg|
+				%li= msg
+
+= form_for(@site) do |f|
+	- if @site.id.nil?
+		%h1.form-new-site-heading New site
+	- else
+		%h1.form-new-site-heading Edit site
+	
+	%div.field
+		= f.label :name 
+		= f.text_field :name, :class => 'form-control'
+	
+	%div.field
+		= f.label :keywords 
+		= f.text_field :keywords, :class => 'form-control'
+	
+	%div.field
+		= f.label :description
+		= f.text_area(:description, :class => "form-control", :rows => "3" )
+	
+	%div.actions
+		= f.submit "Save site", :class => 'submit-form btn btn-lg btn-primary btn-block'
+		
+	- if notice
+		%div#notice.alert.alert-info= notice
+
+	- if alert
+		%div#alert.alert.alert-danger= alert

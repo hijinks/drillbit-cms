@@ -1,0 +1,19 @@
+= form_tag user_sessions_path, :role => 'form', :class => 'form-signin', :method => :post do
+	
+	= image_tag "drillbit/logos/drillbit.png", :class => 'logo'
+	%h1.form-signin-heading Sign in
+	
+	%div.field
+		= text_field_tag :email, 'Email address', :class => 'form-control'
+		
+	%div.field
+		= password_field_tag :password, 'Passwords', :class => 'form-control'
+		
+	%div.actions
+		= submit_tag "Login", :class => 'submit-form btn btn-lg btn-primary btn-block'
+		
+	- if notice
+		%div#notice.alert.alert-info= notice
+
+	- if alert
+		%div#alert.alert.alert-danger= alert

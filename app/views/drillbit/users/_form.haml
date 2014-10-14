@@ -1,0 +1,33 @@
+- if @user.errors.any?
+	%div#error_explanation.alert.alert-danger
+		%h2
+			= pluralize(@user.errors.count, "error")
+			= 'prohibited this user from being saved:'
+
+		%ul
+			- @user.errors.full_messages.each do |msg|
+				%li= msg
+
+= form_for @user, :role => 'form', :method => :post do |f|
+	%h1.form-new-user-heading New user
+	
+	%div.field
+		= f.label :email 
+		= f.text_field :email, :class => 'form-control'
+	
+	%div.field
+		= f.label :password
+		= f.password_field :password, :class => 'form-control'
+	
+	%div.field
+		= f.label :password_confirmation
+		= f.password_field :password_confirmation, :class => 'form-control'
+	
+	%div.actions
+		= f.submit "Send confirmation", :class => 'submit-form btn btn-lg btn-primary btn-block'
+		
+	- if notice
+		%div#notice.alert.alert-info= notice
+
+	- if alert
+		%div#alert.alert.alert-danger= alert
