@@ -5,10 +5,6 @@ module Drillbit
 
 		layout "drillbit/full_page"
 		
-		def user_params
-			params.require(:user).permit(:email, :password, :password_confirmation)
-		end
-		
 		def index
 			@user = Drillbit::User.all
 		end

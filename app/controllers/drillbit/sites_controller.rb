@@ -47,7 +47,7 @@ module Drillbit
 			
 			if @site
 				@site.posts.each do |post|
-					storagePath = '/home/shinto/site/rails/shinto/app/store/galleries'
+					storagePath = '/home/shinto/site/geohacks/app/store/galleries'
 					
 					gallery = Gallery.find_by(post_id: post.id)
 					
