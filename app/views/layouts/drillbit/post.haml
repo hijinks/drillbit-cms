@@ -4,7 +4,7 @@
 		%title Drillbit
 		= stylesheet_link_tag	"drillbit/application", media: "all"
 		= javascript_include_tag	"drillbit/application"
-		%script{:type=>"text/javascript", :src=>"/assets/aloha/aloha-full.js", 'data-aloha-plugins'=>"common/ui, common/format, common/table, common/list, common/link, common/paste, common/block, common/align, common/undo, common/commands, common/abbr, common/contenthandler,  custom/aloha-gallery"}
+		%script{:type=>"text/javascript", :src=>"/assets/aloha/aloha-full.js", 'data-aloha-plugins'=>"common/ui, common/format, common/table, common/list, common/link, common/paste, common/block, common/align, common/undo, common/commands, common/abbr, common/contenthandler,  custom/aloha-gallery, custom/trim-content"}
 		= yield(:head)
 		= csrf_meta_tags
 	%body

@@ -2,6 +2,7 @@
 //*= require jquery.bubbletip.js
 //*= require drillbit/dragdrop
 
+
 Aloha = window.Aloha || {};
 
 Aloha.settings = 
@@ -11,6 +12,8 @@ Aloha.settings =
 	requireConfig:
 		paths:
 			'aloha-gallery': '/assets/drillbit/aloha-gallery'
+	contentHandler:
+    	insertHtml: ['TrimContent', 'generic', 'sanitize' ]
 	toolbar:
 		tabs:[
 			{
