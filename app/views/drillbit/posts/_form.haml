@@ -35,14 +35,14 @@
 			%div.col-md-10
 				= f.label :banner
 			%div.col-md-4
-				%input#bannerUpload{:type => 'file', :name => 'banner'}
-				= f.hidden_field :banner, :id => 'banner'
+				%input.btn.btn-primary.btn-lg{'type'=>'button', 'data-toggle'=>'modal', 'data-target'=>'#banner_upload', :value => 'Upload'}
 				%span{:class => 'help-block'} An image as a backdrop banner
 				
 			%div.col-md-8
 				%div.panel.panel-default
 					%div#banner-content.panel-body
-						Preview
+						- unless @post.banner.path.nil?
+							= image_tag '/splash/'+@post.id.to_s
 			
 	%div.field
 		= f.label :keywords
@@ -65,7 +65,7 @@
 		  
 %button#submitPost{ :class => 'submit-form btn btn-lg btn-primary btn-block'} Save Post
 
-%div#img_params.modal.fade.bs-example-modal-sm{ :tabindex => "-1", :role => "dialog", 'aria-labelledby' => "mySmallModalLabel",'aria-hidden' => "true"}
+%div#img_params.modal.fade{ :tabindex => "-1", :role => "dialog", 'aria-labelledby' => "mySmallModalLabel",'aria-hidden' => "true"}
 	%div.modal-dialog.modal-sm
 		%div.modal-content
 			%div.modal-header
@@ -82,8 +82,7 @@
 							
 						%div.col-md-4
 							%div.checkbox
-								%label
-									%input#lockAspect{:type=>'checkbox'} Lock aspect ratio
+								%input#lockAspect{:type=>'checkbox'} Lock aspect ratio
 				%div.field
 					%div.row
 						%div.col-md-4.text-right
@@ -106,4 +105,24 @@
 				%button.btn.btn-default{:type=>'button','data-dismiss' => 'modal'} Close
 				%button#saveImageDims.btn.btn-primary{:type=>'button'} Save changes
 														
-						
+%div#banner_upload.modal.fade.banner-modal{ :tabindex => "-1", :role => "dialog", 'aria-labelledby' => "banner_upload", 'aria-hidden' => "true"}
+	%div.modal-dialog.modal-sm
+		%div.modal-content
+			%div.modal-header
+				%button.close{:type => 'button', 'data-dismiss' => 'modal'}
+					%span.glyphicon.glyphicon-remove
+					%span.sr-only Close
+				%h4.modal-title Upload Banner
+			
+			%div.modal-body
+				= form_for [@site,@post], :html => {:target => 'bannerIframe'} do |f|
+					%div.field
+						%div.row
+							%div.col-md-4
+								%label Image
+							%div.col-md-4
+								= f.file_field :banner
+					%iframe#bannerIframe{:name => 'bannerIframe'}
+					= f.submit
+			%div.modal-footer
+				%button.btn.btn-default{:type=>'button','data-dismiss' => 'modal'} Close

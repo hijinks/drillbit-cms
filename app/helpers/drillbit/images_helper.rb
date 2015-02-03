@@ -14,10 +14,11 @@ module Drillbit
 			return okTypes.include? fileType
 		end
 		
+		
 		def saveImage(gallery_id, rel_path, file_name, file_type)
 			
-			storagePath = '/home/shinto/site/rails/shinto/app/store/galleries'
-			tmpPath = File.join('/home/shinto/site/rails/shinto/app/store/tmp', rel_path)
+			storagePath = File.join(config.file_store, 'galleries')
+			tmpPath = File.join(config.file_store, 'tmp', rel_path)
 			randkey = (0...8).map { (65 + rand(26)).chr }.join.downcase 
 			galleryDir = File.join(storagePath, gallery_id)
 			galleryPath = File.join(gallery_id, randkey + '_' + file_name)
@@ -27,6 +28,7 @@ module Drillbit
 			justName = File.basename(file_name, ext)
 			thumbNameM = File.join(galleryDir, randkey + '_' + justName + '_m' + ext)
 			thumbNameS = File.join(galleryDir, randkey + '_' + justName + '_s' + ext)
+			
 			if !Dir.exists? galleryDir
 				Dir.mkdir galleryDir
 				FileUtils.chown 'www-data', 'www-data', galleryDir

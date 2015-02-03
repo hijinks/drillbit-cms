@@ -21,7 +21,7 @@
 		#avatar_wrap
 			= f.label :avatar, " Avatar"
 			- if @profile.avatar.url.present?
-				= image_tag @profile.avatar.url, :class => "img-thumbnail"
+				= image_tag '/avatar/'+@user.id.to_s, :class => "img-thumbnail"
 			= f.hidden_field :avatar_cache
 			= f.file_field :avatar
 			%p (Needs 1:1 aspect ratio)

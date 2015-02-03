@@ -106,7 +106,7 @@ module Drillbit
 			if @site && @post
 			
 				kc = keyCheck(post_params, [:content, :title])
-			
+				bc = keyCheck(post_params, [:banner])
 				if kc.first
 					unless post_params[:title].blank?
 						sanitized = Sanitize.fragment(post_params[:content], Sanitize::Config::RELAXED)
@@ -121,6 +121,13 @@ module Drillbit
 							:data => 'Missing title'
 						}
 				  	end
+				elsif bc.first
+					@post.update_attributes(post_params)
+					if @post.save!
+						returnData = {
+							:status => 'success'
+						}						
+					end
 				else
 					returnData = {
 						:status => 'failure',
@@ -141,7 +148,7 @@ module Drillbit
 			@post = Post.find(params[:id])
 			@site = Site.find(params[:site_id])
 			if @site && @post
-				storagePath = '/home/shinto/site/rails/shinto/app/store/galleries'
+				storagePath = File.join(config.file_store, 'galleries')
 				
 				gallery = Gallery.find_by(post_id: @post.id)
 				
@@ -161,7 +168,7 @@ module Drillbit
 		private
 			
 		def post_params
-			params.require(:post).permit(:title, :content, :keywords, :description, :gallery_id)
+			params.require(:post).permit(:title, :content, :keywords, :description, :gallery_id, :banner)
 		end
 	end
 end

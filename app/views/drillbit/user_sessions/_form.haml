@@ -4,10 +4,17 @@
 	%h1.form-signin-heading Sign in
 	
 	%div.field
+<<<<<<< HEAD
 		= text_field_tag :email, '', :class => 'form-control', :placeholder => 'Email'
 		
 	%div.field
 		= password_field_tag :password, '', :class => 'form-control', :placeholder => 'Password'
+=======
+		= text_field_tag :email, '', :class => 'form-control', :placeholder => 'Email address'
+		
+	%div.field
+		= password_field_tag :password, '', :class => 'form-control', :placeholder => 'Passwords'
+>>>>>>> 7edcd9a89f7bb4bf6d80abdc63c618bbd169f2f3
 		
 	%div.actions
 		= submit_tag "Login", :class => 'submit-form btn btn-lg btn-primary btn-block'

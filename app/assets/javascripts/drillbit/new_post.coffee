@@ -12,6 +12,8 @@ Aloha.settings =
 	requireConfig:
 		paths:
 			'aloha-gallery': '/assets/drillbit/aloha-gallery'
+	contentHandler:
+    	insertHtml: ['generic', 'sanitize' ]
 	plugins:
 		image:
 			config: [ 'img' ],
