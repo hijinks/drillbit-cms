@@ -95,6 +95,10 @@ autoSave = (callback)->
 		console.log('saving')
 	,saveInterval)
 
+
+window.removeEmpties = ()->
+	$('#blog-content *:empty').remove()
+	
 $('document').ready ()->
 	$('#chooseAutosaveInterval').change ()->
 		saveVal = this.options[this.selectedIndex].text
@@ -110,6 +114,7 @@ Aloha.ready ->
 
 	Aloha.jQuery('#blog-content').aloha();
 
+	window.removeEmpties();
 	
 	formType = uri[uri.length - 1]
 	siteId = uri[uri.length - 3]
@@ -125,6 +130,8 @@ Aloha.ready ->
 		clearInterval(saveInterval)
 		
 	$('#submitPost').click ()->
+		window.removeEmpties();
+		
 		data = {
 			title:$('#post-title').val(),
 			content:$('#blog-content-wrap').html(),
