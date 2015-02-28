@@ -3,6 +3,7 @@
 	%li= link_to 'All Posts', site_posts_path(params[:site_id])
 	
 = form_for [@site,@post] do |f|
+	= hidden_field_tag 'auth_token', form_authenticity_token
 	%div.row
 		%div.col-md-4
 			%h1.form-new-user-heading #{type} post

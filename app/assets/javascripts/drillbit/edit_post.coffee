@@ -47,7 +47,10 @@ getSelectionText = ()->
         text = document.selection.createRange().text
     
     return text
-							
+
+window.removeEmpties = ()->
+	$('#blog-content *:empty').remove()
+								
 Aloha.ready ->
 	
 	$(document.body).append($("<div id='tip1_up' style='display:none;'>Saved!</div>"))
@@ -55,7 +58,9 @@ Aloha.ready ->
 	window.imageResizeModalBehaviours()
 	
 	Aloha.jQuery('#blog-content').aloha();
-					
+	
+	window.removeEmpties();
+				
 	$('.resizableImage').each ()->
 		
 		
@@ -90,6 +95,8 @@ Aloha.ready ->
 	});
 	
 	$('#submitPost').click ()->
+		window.removeEmpties();
+		
 		data = {
 			title:$('#post-title').val(),
 			content:$('#blog-content-wrap').html(),

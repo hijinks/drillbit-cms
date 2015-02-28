@@ -7,6 +7,8 @@ Drillbit::Engine.routes.draw do
 	put 'update_profile' => 'profiles#update', :as => :update_profile
 	get 'profile' => 'profiles#show', :as => :show_profile
 	get 'nginx_upload' => 'images#create'
+	post '/upload_text' => 'posts#upload_text'
+	
 	
 	resources :users do
 		member do

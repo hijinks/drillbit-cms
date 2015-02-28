@@ -1,6 +1,7 @@
 require_dependency "drillbit/application_controller"
 require 'sanitize'
 require 'fileutils'
+require 'nokogiri'
 
 module Drillbit
 	class PostsController < ApplicationController
@@ -8,6 +9,7 @@ module Drillbit
 		respond_to :json
 		
 		include Drillbit::ApplicationHelper
+		include Drillbit::PostsHelper
 		
 		def index
 			@site = Site.find(params[:site_id])
@@ -163,8 +165,55 @@ module Drillbit
 			
 			redirect_to :action => "index"	
 		end
+		
+		def upload_text
+			
+			
+			uploader = TextUploader.new
+			uploader.store!(text_file_params[:file])
+			
+			ext = File.extname(uploader.current_path)  
+			
+			case ext
+				when '.txt' || '.rft'
+				  raw = getPlainContents(uploader.current_path)
+				when '.doc'
+				  raw = getDocContents(uploader.current_path)
+				when '.docx'
+				  raw = getDocxContents(uploader.current_path)
+			end
+
+			baseHtml = <<-EOHTML
+<html>
+	<body>
+		<div id="paragraphs">
+		</div>
+	</body>
+</html>
+EOHTML
+			
+			@doc = Nokogiri::HTML::Document.parse baseHtml		
+			@body = @doc.root.first_element_child
+			
+			@paras = @body.css('div#paragraphs')[0]
+			
+			paragraphs = raw.split( /\r?\n/ )
+			
+			paragraphs.each do |para|
+				newPara = Nokogiri::XML::Node.new "p", @doc
+				newPara.content = para
+				@paras.add_child(newPara)
+			end
+			
+			render :text => @body.to_html
+		end
+		
 	
 		private
+		
+		def text_file_params
+			params.permit(:file)
+		end
 			
 		def post_params
 			params.require(:post).permit(:title, :content, :keywords, :description, :gallery_id, :banner)
