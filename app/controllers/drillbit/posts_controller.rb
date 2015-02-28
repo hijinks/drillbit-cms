@@ -11,9 +11,8 @@ module Drillbit
 		
 		def index
 			@site = Site.find(params[:site_id])
-			
 			if @site
-				@posts = @site.posts
+				@posts = Post.find_by(:site_id => @site.id) 
 			end
 		end
 	
