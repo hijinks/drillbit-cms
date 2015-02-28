@@ -66,7 +66,7 @@
 		  
 %button#submitPost{ :class => 'submit-form btn btn-lg btn-primary btn-block'} Save Post
 
-%div#img_params.modal.fade{ :tabindex => "-1", :role => "dialog", 'aria-labelledby' => "mySmallModalLabel",'aria-hidden' => "true"}
+%div#img_params.modal.fade{ :tabindex => "-1", :role => "dialog", 'aria-labelledby' => "image_modal",'aria-hidden' => "true"}
 	%div.modal-dialog.modal-sm
 		%div.modal-content
 			%div.modal-header
@@ -76,32 +76,33 @@
 				%h4.modal-title Image Options
 				
 			%div.modal-body
-				%input#originalRatio{:type => 'hidden'}
-				%div.field
-					%div.row
-						%div.col-md-4
-							
-						%div.col-md-4
-							%div.checkbox
-								%input#lockAspect{:type=>'checkbox'} Lock aspect ratio
-				%div.field
-					%div.row
-						%div.col-md-4.text-right
-							%label Height
-						%div.col-md-4
-							%div.form-group
-								%div.input-group
-									%input#imgHeightOpt.form-control{:type => 'text'}
-									%div.input-group-addon px
-				%div.field
-					%div.row
-						%div.col-md-4.text-right
-							%label Width
-						%div.col-md-4
-							%div.form-group
-								%div.input-group
-									%input#imgWidthOpt.form-control{:type => 'text'}
-									%div.input-group-addon px
+				%form{:autocomplete => "on"}
+					%input#originalRatio{:type => 'hidden'}
+					%div.field
+						%div.row
+							%div.col-md-4
+								
+							%div.col-md-4
+								%div.checkbox
+									%input#lockAspect{:type=>'checkbox'} Lock aspect ratio
+					%div.field
+						%div.row
+							%div.col-md-4.text-right
+								%label Height
+							%div.col-md-4
+								%div.form-group
+									%div.input-group
+										%input#imgHeightOpt.form-control{:type => 'text'}
+										%div.input-group-addon px
+					%div.field
+						%div.row
+							%div.col-md-4.text-right
+								%label Width
+							%div.col-md-4
+								%div.form-group
+									%div.input-group
+										%input#imgWidthOpt.form-control{:type => 'text'}
+										%div.input-group-addon px
 			%div.modal-footer
 				%button.btn.btn-default{:type=>'button','data-dismiss' => 'modal'} Close
 				%button#saveImageDims.btn.btn-primary{:type=>'button'} Save changes

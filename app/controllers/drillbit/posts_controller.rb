@@ -107,13 +107,13 @@ module Drillbit
 	  
 			if @site && @post
 			
-				kc = keyCheck(post_params, [:content, :title])
+				kc = keyCheck(post_params, [:content, :title, :keywords, :description])
 				bc = keyCheck(post_params, [:banner])
 				if kc.first
 					unless post_params[:title].blank?
 						sanitized = Sanitize.fragment(post_params[:content], Sanitize::Config::RELAXED)
 						okHTML = scrub_html(sanitized).strip
-						@post.update!(title: post_params[:title], content: okHTML, site_id: @site.id)
+						@post.update!(title: post_params[:title], content: okHTML, site_id: @site.id, keywords: post_params[:keywords], description: post_params[:description])
 						returnData = {
 							:status => 'success'
 						}
