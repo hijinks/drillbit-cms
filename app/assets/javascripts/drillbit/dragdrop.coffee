@@ -100,11 +100,10 @@ window.drop = (ev)->
 		$(newImg).css 'display', 'block'
 		$(newImg).css 'margin', '0 auto'
 		
-		$(newImg).click ()->
+		$(newImg).dblclick ()->
 			window.imageToEdit = $(this)
 			window.imageResizeModalPopulate($(this))
 			$('#img_params').modal('show')
 			
 		Aloha.jQuery(imgDiv).alohaBlock()
 		
-$('document').ready ()->

@@ -49,7 +49,11 @@ getSelectionText = ()->
     return text
 
 window.removeEmpties = ()->
-	$('#blog-content *:empty').remove()
+	$('#blog-content p:empty').remove()
+	$('#blog-content h1:empty').remove()
+	$('#blog-content h2:empty').remove()
+	$('#blog-content h3:empty').remove()
+	$('#blog-content h4:empty').remove()
 								
 Aloha.ready ->
 	
