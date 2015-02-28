@@ -104,6 +104,8 @@ Aloha.ready ->
 		data = {
 			title:$('#post-title').val(),
 			content:$('#blog-content-wrap').html(),
+			keywords:$('#keywords').val(),
+			description:$('#description').val(),
 			authenticity_token: $('form.edit_post input[name="authenticity_token"]').first().val(),
 			site_id: $('#site_id').val()
 		}
