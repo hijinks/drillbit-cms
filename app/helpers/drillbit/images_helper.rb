@@ -17,8 +17,8 @@ module Drillbit
 		
 		def saveImage(gallery_id, rel_path, file_name, file_type)
 			
-			storagePath = File.join(config.file_store, 'galleries')
-			tmpPath = File.join(config.file_store, 'tmp', rel_path)
+			storagePath = File.join(Rails.configuration.file_store, 'galleries')
+			tmpPath = File.join(Rails.configuration.file_store, 'tmp', rel_path)
 			randkey = (0...8).map { (65 + rand(26)).chr }.join.downcase 
 			galleryDir = File.join(storagePath, gallery_id)
 			galleryPath = File.join(gallery_id, randkey + '_' + file_name)

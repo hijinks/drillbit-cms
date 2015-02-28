@@ -47,7 +47,7 @@ module Drillbit
 			
 			if @site
 				@site.posts.each do |post|
-					storagePath = ile.join(config.file_store, 'galleries')
+					storagePath = File.join(Rails.configuration.file_store, 'galleries')
 					
 					gallery = Gallery.find_by(post_id: post.id)
 					

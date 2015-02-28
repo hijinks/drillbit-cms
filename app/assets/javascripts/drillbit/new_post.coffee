@@ -97,7 +97,7 @@ autoSave = (callback)->
 
 
 window.removeEmpties = ()->
-	$('#blog-content *:empty').remove()
+	$('#blog-content p:empty').remove()
 	
 $('document').ready ()->
 	$('#chooseAutosaveInterval').change ()->
