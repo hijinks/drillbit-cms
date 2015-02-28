@@ -150,10 +150,10 @@ module Drillbit
 			@post = Post.find(params[:id])
 			@site = Site.find(params[:site_id])
 			if @site && @post
-				storagePath = File.join(config.file_store, 'galleries')
+				storagePath = File.join(Rails.configuration.file_store, 'galleries')
 				
 				gallery = Gallery.find_by(post_id: @post.id)
-				
+
 				if gallery
 					if File.exists?(File.join(storagePath, gallery.id.to_s))
 						FileUtils.rm_r File.join(storagePath, gallery.id.to_s)
