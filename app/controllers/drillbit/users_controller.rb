@@ -4,7 +4,10 @@ module Drillbit
 	class UsersController < ApplicationController
 
 		layout "drillbit/full_page"
-		
+
+		include Tokenable
+		include KyruEmail
+					
 		def index
 			@user = Drillbit::User.all
 		end
@@ -23,15 +26,29 @@ module Drillbit
 		end
 
 		def create
-			@user = Drillbit::User.new(params[:user])
-			
-			
-			if @user.save
-				@profile = Profile.create(user_id: @user.id)
-				render :message, :notice => "Signed up!"
+			@user = Drillbit::User.new
+			if user_params[:password] == user_params[:password_confirmation]
+				
+				token = generate_token('activation_token', User)
+				
+				@user.email = user_params[:email]
+				@user.activation_token = token
+				@user.activation_token_expires_at = Date.today + 7.days
+				@user.password = user_params[:password]
+				@user.password_confirmation = user_params[:password_confirmation]
+				
+				if @user.save
+					activation_url = 'http://'+ request.host + '/activate/' + @user.activation_token
+					send_activation(activation_url, user_params[:email])
+					render :activation_notice
+				else
+					render :text => 'User registration failed'
+				end
+	
 			else
-				render :new
+				render :text => "Passwords do not match."
 			end
+			
 		end
 
 		def show
@@ -53,7 +70,7 @@ module Drillbit
 		
 		private
 		
-		def save_params
+		def user_params
 			params.require(:user).permit(:email, :password, :password_confirmation)
 		end
 		
