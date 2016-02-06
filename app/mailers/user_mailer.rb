@@ -8,7 +8,7 @@ class UserMailer < ActionMailer::Base
   #
   def activation_needed_email(user)
   	@user = user
-  	@url  = "http://olly.kyru.co.uk/admin/users/#{user.activation_token}/activate"
+  	@url  = config.uri+"/admin/users/#{user.activation_token}/activate"
   	mail(:to => user.email,
        :subject => "Welcome to My Awesome Site")
   end
@@ -20,7 +20,7 @@ class UserMailer < ActionMailer::Base
   #
   def activation_success_email(user)
  	@user = user
-  	@url  = "http://olly.kyru.co.uk/admin/login"
+  	@url  = config.uri+"/admin/login"
   	mail(:to => user.email,
        :subject => "Your account is now activated")
   end
