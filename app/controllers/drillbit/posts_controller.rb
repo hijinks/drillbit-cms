@@ -2,6 +2,11 @@ require_dependency "drillbit/application_controller"
 require 'sanitize'
 require 'fileutils'
 require 'nokogiri'
+require 'video_info'
+require 'cathodic'
+require 'net/https'
+require 'uri'
+require 'json'
 
 module Drillbit
 	class PostsController < ApplicationController
@@ -93,7 +98,8 @@ module Drillbit
 			@post = Post.find(params[:id])
 			@site = Site.find(params[:site_id])
 			if @site && @post
-				@content = Sanitize.fragment(@post.content, Sanitize::Config::RELAXED)
+				rebuilt = rebuild_editables(@post.content)
+				@content = Sanitize.fragment(rebuilt, Sanitize::Config::RELAXED)
 				render layout: "drillbit/post"
 			else
 			   render :nothing => true
@@ -209,11 +215,49 @@ EOHTML
 			render :text => @body.to_html
 		end
 		
+		def video_info
+		
+			case video_params[:video_type]
+				when 'vimeo'
+					video = VideoInfo.new(video_params[:video_url])
+					thumb = video.thumbnail_medium				
+				when 'twitch'
+					
+					# Stuff for live streaming!
+# 					data = Cathodic::TwitchData.new(video_params[:video_url])
+# 					twitch_client_id = '49nuse4qi2w3xim3dbekb4h6gujk94c'
+# 					if data['online']?
+# 						thumb = data.thumbnail_address
+# 					else
+					
+					twitch_uri = 'https://api.twitch.tv/kraken/videos/v'+video_params[:video_id]
+					uri = URI.parse(twitch_uri)
+					http = Net::HTTP.new(uri.host, uri.port)
+					http.use_ssl = true
+					http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+					request = Net::HTTP::Get.new(uri.request_uri)
+					request['Accept'] = 'application/vnd.twitchtv.v2+json'
+					request['Client-ID'] = '49nuse4qi2w3xim3dbekb4h6gujk94c'
+					response = http.request(request)
+					dat = JSON.parse(response.body)
+					thumb = dat['preview']
+			end
+			render :json => {:thumb => thumb}
+		end
+		
+		def vimeo_test
+			video = VideoInfo.new('https://vimeo.com/937985')
+			render :json => video.thumbnail_medium
+		end
 	
 		private
 		
 		def text_file_params
 			params.permit(:file)
+		end
+		
+		def video_params
+			params.permit(:video_url, :video_type, :video_id)
 		end
 			
 		def post_params

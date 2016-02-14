@@ -1,4 +1,3 @@
-//*= require jquery.fitvids
 //*= require jquery.bubbletip.js
 //*= require drillbit/dragdrop
 
@@ -54,7 +53,8 @@ window.removeEmpties = ()->
 	$('#blog-content h2:empty').remove()
 	$('#blog-content h3:empty').remove()
 	$('#blog-content h4:empty').remove()
-								
+
+						
 Aloha.ready ->
 	
 	$(document.body).append($("<div id='tip1_up' style='display:none;'>Saved!</div>"))
@@ -90,7 +90,10 @@ Aloha.ready ->
 
 	$('.imgWrap').each ()->
 		Aloha.jQuery(this).alohaBlock()
-	
+
+	$('.videoWrap').each ()->
+		Aloha.jQuery(this).alohaBlock()
+			
 	$('#submitPost').on 'show_saved', ()->
 	
 	$('#submitPost').bubbletip($('#tip1_up'), {
@@ -98,6 +101,12 @@ Aloha.ready ->
 		calculateOnShow: true
 	});
 	
+	
+	$('.aloha-block').each ()->
+		$(this).prepend($("<div class='delete-block to-clean'>Delete block</div>"))
+		$(this).find(':first').click ()->
+			$(this).parent().remove()
+		
 	$('#submitPost').click ()->
 		window.removeEmpties();
 		

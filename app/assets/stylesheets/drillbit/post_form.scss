@@ -51,6 +51,14 @@
 	text-align:center;
 }
 
+.videoWrapInner {
+	border: 1px solid #444;
+	display:block;
+	height:200px;
+	width:300px;
+	margin:0 auto;
+}
+
 .imgWrap img{
 	margin:0 auto;
 }
@@ -62,4 +70,22 @@
 
 #textUploadIframe {
 	display:none;
+}
+
+.videoWrap {
+	margin:20px 0px;
+	text-align:center;
+}
+
+.delete-block {
+	float:right;
+	cursor:pointer;
+	display:block;
+	padding:5px;
+	font-size:.7em;
+	color:#999;
+	
+	&:hover {
+		color:#333;
+	}
 }

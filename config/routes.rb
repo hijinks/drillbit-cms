@@ -8,7 +8,8 @@ Drillbit::Engine.routes.draw do
 	get 'profile' => 'profiles#show', :as => :show_profile
 	get 'nginx_upload' => 'images#create'
 	post '/upload_text' => 'posts#upload_text'
-	
+	post 'video-info' => 'posts#video_info'
+	get 'vimeo-test' => 'posts#vimeo_test'
 	
 	resources :users do
 		member do

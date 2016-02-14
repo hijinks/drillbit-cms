@@ -56,7 +56,8 @@ window.dragStart = (ev)->
 	ev.dataTransfer.setData "height", ev.target.getAttribute('original-height')
 	ev.dataTransfer.setDragImage ev.target,0,0
 	return true
-	
+
+
 window.drop = (ev)->
 	ev.preventDefault()
 	imgSrc = ev.dataTransfer.getData 'src'
@@ -88,7 +89,6 @@ window.drop = (ev)->
 				if $(this).is('#blog-content')
 					$(this).append imgDiv
 			
-		
 		$(newImg).css 'width', iw
 		$(newImg).css 'height', ih
 		$(newImg).attr 'width', iw
@@ -104,6 +104,10 @@ window.drop = (ev)->
 			window.imageToEdit = $(this)
 			window.imageResizeModalPopulate($(this))
 			$('#img_params').modal('show')
-			
+
+		$(imgDiv).prepend($("<div class='delete-block to-clean'>Delete block</div>"))
+		$(imgDiv).find(':first').click ()->
+			$(this).parent().remove()
+										
 		Aloha.jQuery(imgDiv).alohaBlock()
 		
